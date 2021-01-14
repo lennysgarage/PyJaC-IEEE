@@ -75,7 +75,8 @@ public class Main extends Application {
             System.out.println("Please enter a decimal number in IEEE-754 to convert back to its decimal representation: ");
             String inputIEEE = in.nextLine();
             if(inputIEEE.length() == 32){
-                // Call method to convert here using inputIEEE
+                IEEEToDec bin = new IEEEToDec(inputIEEE);
+                bin.getDec();
                 isIEEE = true;
             }
         }
