@@ -56,7 +56,9 @@ public class Main extends Application {
             Scanner in = new Scanner(System.in);
             System.out.println("Please enter a decimal number to convert to its IEEE-754 representation: ");
             try {
-                int inputInt = in.nextInt();
+                double inputInt = in.nextDouble();
+                decToIEEE dec = new decToIEEE(inputInt);
+                dec.getIEEE();
             } catch (Exception e){
                 e.printStackTrace();
                 break;
