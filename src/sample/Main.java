@@ -61,9 +61,8 @@ public class Main extends Application {
                 dec.getIEEE();
             } catch (Exception e){
                 e.printStackTrace();
-                break;
+                continue;
             }
-            // Call method to convert here using inputInt
             isInt = true;
         }
     }
