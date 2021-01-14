@@ -38,23 +38,44 @@ public class Main extends Application {
                     System.exit(0);
                     break;
                 case "1":
-                    decToIEEE(Integer.parseInt(input));
+                    decToIEEE();
                     break;
                 case "2":
-                    IEEEToDec(input);
+                    IEEEToDec();
                     break;
                 default:
-                    System.out.println("Plase enter a valid input (0-2)");
+                    System.out.println("Please enter a valid input (0-2)");
                     break;
             }
         }
     }
 
-    private static void decToIEEE(int dec){
-
+    private static void decToIEEE(){
+        boolean isInt = false;
+        while(!isInt) {
+            Scanner in = new Scanner(System.in);
+            System.out.println("Please enter a decimal number to convert to its IEEE-754 representation: ");
+            try {
+                int inputInt = in.nextInt();
+            } catch (Exception e){
+                e.printStackTrace();
+                break;
+            }
+            // Call method to convert here using inputInt
+            isInt = true;
+        }
     }
 
-    private static void IEEEToDec(String ieee){
-
+    private static void IEEEToDec(){
+        boolean isIEEE = false;
+        while(!isIEEE) {
+            Scanner in = new Scanner(System.in);
+            System.out.println("Please enter a decimal number in IEEE-754 to convert back to its decimal representation: ");
+            String inputIEEE = in.nextLine();
+            if(inputIEEE.length() == 32){
+                // Call method to convert here using inputIEEE
+                isIEEE = true;
+            }
+        }
     }
 }
