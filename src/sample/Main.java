@@ -5,6 +5,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
@@ -13,17 +15,28 @@ import java.util.Scanner;
 
 public class Main extends Application {
 
-    private final CheckBox signBitBox = new CheckBox();
-    private final CheckBox[] exponentBits = new CheckBox[8];
-    private final CheckBox[] mantissaBits = new CheckBox[23];
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         initUI(primaryStage);
     }
 
+    private final ChangeCheckBox signBitBox = new ChangeCheckBox(0);
+    private final ChangeCheckBox[] exponentBits = new ChangeCheckBox[8];
+    private final ChangeCheckBox[] mantissaBits = new ChangeCheckBox[23];
+
+    // Model
+    BitsModel bitsModel;
+
+    // Panes
+    final FlowPane pane = new FlowPane();
+    final TilePane pane2 = new TilePane();
+    final TilePane pane3 = new TilePane();
+
     private void initUI(Stage stage){
-        final FlowPane pane = new FlowPane();
+
+        // Model
+        bitsModel = new BitsModel();
+
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
         Scene scene = new Scene(pane, 1038, 200);
@@ -38,46 +51,54 @@ public class Main extends Application {
         mantissa.setPadding(new Insets(10, 302, 10, 302));
         mantissa.setStyle("-fx-background-color:#ffb7b2; -fx-font-weight: bold; -fx-font-size:16px");
 
-        pane.getChildren().add(signBit);
-        pane.getChildren().add(exponent);
-        pane.getChildren().add(mantissa);
-
+        pane.getChildren().addAll(signBit, exponent, mantissa);
 
         // Insert all the checkboxes
 
         // Inserting the sign bit checkbox
         signBitBox.setPadding(new Insets(10, 17, 10, 17));
         pane.getChildren().add(signBitBox);
-        signBitBox.setOnAction(new UpdateSign(signBitBox));
+        signBitBox.setOnAction(new UpdateSign(0, bitsModel));
+
+        bitsModel.attach(signBitBox);
 
         // Inserting the exponent bit checkboxes
-        final TilePane pane2 = new TilePane();
+
         pane2.setPadding(new Insets(20, 20, 20, 22));
         pane2.setVgap(10);
         pane2.setHgap(15);
         pane2.setPrefColumns(8);
 
         for(int i = 0; i < 8; i++){
-            exponentBits[i] = new CheckBox();
+            exponentBits[i] = new ChangeCheckBox(1 + i);
+            bitsModel.attach(exponentBits[i]);
             pane2.getChildren().add(exponentBits[i]);
-            exponentBits[i].setOnAction(new UpdateExp(i));
+            exponentBits[i].setOnAction(new UpdateExp(i, bitsModel));
         }
 
         // Inserting the mantissa bit checkboxes
-        final TilePane pane3 = new TilePane();
+
         pane3.setPadding(new Insets(20, 20, 20, 21));
         pane3.setVgap(10);
         pane3.setHgap(12);
         pane3.setPrefColumns(23);
 
         for(int i = 0; i < 23; i++){
-            mantissaBits[i] = new CheckBox();
+            mantissaBits[i] = new ChangeCheckBox(9 + i);
+            bitsModel.attach(mantissaBits[i]);
             pane3.getChildren().add(mantissaBits[i]);
-            mantissaBits[i].setOnAction(new UpdateMan(i));
+            mantissaBits[i].setOnAction(new UpdateMan(i, bitsModel));
         }
 
-        pane.getChildren().add(pane2);
-        pane.getChildren().add(pane3);
+        pane.getChildren().addAll(pane2, pane3);
+
+        // Grab text
+        ChangeDecimalText txt = new ChangeDecimalText();
+        txt.setOnAction(new DecimalInput(txt, bitsModel));
+        pane.getChildren().add(txt);
+        bitsModel.attach(txt);
+
+
 
         stage.setTitle("IEEE-754 Single Precision Converter");
         stage.setScene(scene);
@@ -121,7 +142,7 @@ public class Main extends Application {
             try {
                 double inputInt = in.nextDouble();
                 decToIEEE dec = new decToIEEE(inputInt);
-                dec.getIEEE();
+                System.out.println(dec.getIEEE());
             } catch (Exception e){
                 e.printStackTrace();
                 continue;
@@ -138,7 +159,7 @@ public class Main extends Application {
             String inputIEEE = in.nextLine();
             if(inputIEEE.length() == 32){
                 IEEEToDec bin = new IEEEToDec(inputIEEE);
-                bin.getDec();
+                System.out.println(bin.getDec());
                 isIEEE = true;
             }
         }
