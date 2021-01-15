@@ -8,8 +8,8 @@ public class IEEEToDec {
         this.binString = binString;
     }
 
-    public void getDec() {
-        System.out.println(this.calcIEEEToDec());
+    public double getDec() {
+        return this.calcIEEEToDec();
     }
 
     private int getSignBit(){
