@@ -2,36 +2,39 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.CheckBox;
 
 public abstract class UpdateBits {
 
     int position;
     final Bits bits = Bits.getInstance();
+    final BitsModel bitsModel;
 
-    UpdateBits(int position) {
+    UpdateBits(int position, BitsModel bitsModel) {
         this.position = position;
+        this.bitsModel = bitsModel;
     }
 }
 
-class UpdateSign implements EventHandler<ActionEvent> {
+class UpdateSign extends UpdateBits implements EventHandler<ActionEvent> {
 
-    private final CheckBox signBit;
-
-    UpdateSign(CheckBox signBit){
-        this.signBit = signBit;
+    UpdateSign(int position, BitsModel bitsModel){
+        super(position, bitsModel);
     }
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        System.out.println(this.signBit.isSelected());
+        if(bits.getSignBit() == 0)
+            bits.setSignBit(1);
+        else
+            bits.setSignBit(0);
+        bitsModel.updateBits();
     }
 }
 
 class UpdateExp extends UpdateBits implements EventHandler<ActionEvent> {
 
-    UpdateExp(int position) {
-        super(position);
+    UpdateExp(int position, BitsModel bitsModel) {
+        super(position, bitsModel);
     }
 
     @Override
@@ -40,15 +43,14 @@ class UpdateExp extends UpdateBits implements EventHandler<ActionEvent> {
             bits.setExponentBit(position, 1);
         else
             bits.setExponentBit(position, 0);
-        System.out.println(bits.getExponentBit(position));
-        // need to notify observers
+        bitsModel.updateBits();
     }
 }
 
 class UpdateMan extends UpdateBits implements EventHandler<ActionEvent> {
 
-    UpdateMan(int position){
-        super(position);
+    UpdateMan(int position, BitsModel bitsModel){
+        super(position, bitsModel);
     }
 
     @Override
@@ -57,8 +59,9 @@ class UpdateMan extends UpdateBits implements EventHandler<ActionEvent> {
             bits.setMantissaBit(position, 1);
         else
             bits.setMantissaBit(position, 0);
-        System.out.println(bits.getMantissaBit(position));
+        bitsModel.updateBits();
     }
-
-    // need to notify observers
 }
+
+
+
