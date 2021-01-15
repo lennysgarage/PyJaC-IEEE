@@ -1,9 +1,7 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -12,11 +10,12 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import java.util.Scanner;
 
+
 public class Main extends Application {
 
-    //private int[] exponentBits = {0, 0, 0, 0, 0, 0, 0, 0};
-    private CheckBox[] exponentBits = new CheckBox[8];
-    private CheckBox[] mantissaBits = new CheckBox[23];
+    private final CheckBox signBitBox = new CheckBox();
+    private final CheckBox[] exponentBits = new CheckBox[8];
+    private final CheckBox[] mantissaBits = new CheckBox[23];
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -45,10 +44,13 @@ public class Main extends Application {
 
 
         // Insert all the checkboxes
-        CheckBox signBitBox = new CheckBox();
+
+        // Inserting the sign bit checkbox
         signBitBox.setPadding(new Insets(10, 17, 10, 17));
         pane.getChildren().add(signBitBox);
+        signBitBox.setOnAction(new UpdateSign(signBitBox));
 
+        // Inserting the exponent bit checkboxes
         final TilePane pane2 = new TilePane();
         pane2.setPadding(new Insets(20, 20, 20, 22));
         pane2.setVgap(10);
@@ -58,8 +60,10 @@ public class Main extends Application {
         for(int i = 0; i < 8; i++){
             exponentBits[i] = new CheckBox();
             pane2.getChildren().add(exponentBits[i]);
+            exponentBits[i].setOnAction(new UpdateExp(i));
         }
 
+        // Inserting the mantissa bit checkboxes
         final TilePane pane3 = new TilePane();
         pane3.setPadding(new Insets(20, 20, 20, 21));
         pane3.setVgap(10);
@@ -69,6 +73,7 @@ public class Main extends Application {
         for(int i = 0; i < 23; i++){
             mantissaBits[i] = new CheckBox();
             pane3.getChildren().add(mantissaBits[i]);
+            mantissaBits[i].setOnAction(new UpdateMan(i));
         }
 
         pane.getChildren().add(pane2);
