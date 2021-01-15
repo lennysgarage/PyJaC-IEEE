@@ -7,9 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
-
 import java.util.Scanner;
 
 public class Main extends Application {
@@ -24,42 +24,55 @@ public class Main extends Application {
     }
 
     private void initUI(Stage stage){
-        final GridPane pane = new GridPane();
+        final FlowPane pane = new FlowPane();
         pane.setPadding(new Insets(10));
-        //pane.setVgap(10);
-        Scene scene = new Scene(pane, 600, 600);
+        pane.setHgap(10);
+        Scene scene = new Scene(pane, 1038, 200);
 
-        Label signBit = new Label("Sign bit");
-        signBit.setPadding(new Insets(0, 40, 0, 0));
-        signBit.setStyle("-fx-background-color:#5c2cd3; -fx-font-weight: bold; -fx-font-size:16px");
+        Label signBit = new Label("Sign");
+        signBit.setPadding(new Insets(10, 10, 10, 10));
+        signBit.setStyle("-fx-background-color:#e2f0cb; -fx-font-weight: bold; -fx-font-size:16px");
         Label exponent = new Label("Exponent");
-        exponent.setPadding(new Insets(0, 100, 0, 0));
-        exponent.setStyle("-fx-background-color:#3ec162; -fx-font-weight: bold; -fx-font-size:16px");
+        exponent.setPadding(new Insets(10, 100, 10, 100));
+        exponent.setStyle("-fx-background-color:#c7ceea; -fx-font-weight: bold; -fx-font-size:16px");
         Label mantissa = new Label("Mantissa");
-        mantissa.setPadding(new Insets(0, 100, 0, 0));
-        mantissa.setStyle("-fx-background-color:#e3331c; -fx-font-weight: bold; -fx-font-size:16px");
+        mantissa.setPadding(new Insets(10, 302, 10, 302));
+        mantissa.setStyle("-fx-background-color:#ffb7b2; -fx-font-weight: bold; -fx-font-size:16px");
 
-        pane.add(signBit,1, 0);
-        pane.add(exponent, 2, 0);
-        pane.add(mantissa, 3, 0);
+        pane.getChildren().add(signBit);
+        pane.getChildren().add(exponent);
+        pane.getChildren().add(mantissa);
 
 
         // Insert all the checkboxes
         CheckBox signBitBox = new CheckBox();
-        pane.add(signBitBox, 1, 3);
+        signBitBox.setPadding(new Insets(10, 17, 10, 17));
+        pane.getChildren().add(signBitBox);
+
+        final TilePane pane2 = new TilePane();
+        pane2.setPadding(new Insets(20, 20, 20, 22));
+        pane2.setVgap(10);
+        pane2.setHgap(15);
+        pane2.setPrefColumns(8);
 
         for(int i = 0; i < 8; i++){
             exponentBits[i] = new CheckBox();
-            pane.add(exponentBits[i], 2 + i, 3);
+            pane2.getChildren().add(exponentBits[i]);
         }
+
+        final TilePane pane3 = new TilePane();
+        pane3.setPadding(new Insets(20, 20, 20, 21));
+        pane3.setVgap(10);
+        pane3.setHgap(12);
+        pane3.setPrefColumns(23);
 
         for(int i = 0; i < 23; i++){
             mantissaBits[i] = new CheckBox();
-            pane.add(mantissaBits[i], 10 + i, 1);
+            pane3.getChildren().add(mantissaBits[i]);
         }
 
-
-
+        pane.getChildren().add(pane2);
+        pane.getChildren().add(pane3);
 
         stage.setTitle("IEEE-754 Single Precision Converter");
         stage.setScene(scene);
