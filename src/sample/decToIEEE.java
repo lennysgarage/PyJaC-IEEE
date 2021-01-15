@@ -16,11 +16,11 @@ public class decToIEEE {
         }
     }
 
-    public void getIEEE() {
+    public String getIEEE() {
         char signBit = getSignBit();
         String mantissa = getMantissa();
         String binary = getBinary();
-        System.out.println(signBit + binary + mantissa);
+        return (signBit + binary + mantissa);
     }
 
     private char getSignBit() {
