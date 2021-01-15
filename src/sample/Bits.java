@@ -1,10 +1,15 @@
 package sample;
 
+import java.util.Arrays;
+
 public class Bits {
 
     private static Bits instance = null;
+    private int signBit;
     private int[] exponentBits;
     private int[] mantissaBits;
+
+    private double decimal;
 
     private Bits() {
         this.exponentBits = new int[8];
@@ -13,12 +18,10 @@ public class Bits {
     }
 
     private void initBits(){
-        for(int i = 0; i < this.exponentBits.length; i++){
-            this.exponentBits[i] = 0;
-        }
-        for(int i = 0; i < this.mantissaBits.length; i++){
-            this.mantissaBits[i] = 0;
-        }
+        this.signBit = 0;
+        Arrays.fill(this.exponentBits, 0);
+        Arrays.fill(this.mantissaBits, 0);
+        this.decimal = 0.0;
     }
 
     public static Bits getInstance() {
@@ -26,6 +29,14 @@ public class Bits {
             instance = new Bits();
         }
         return instance;
+    }
+
+    public int getSignBit(){
+        return this.signBit;
+    }
+
+    public void setSignBit(int signBit) {
+        this.signBit = signBit;
     }
 
     public int getExponentBit(int pos){
@@ -42,5 +53,25 @@ public class Bits {
 
     public void setMantissaBit(int pos, int bin){
         this.mantissaBits[pos] = bin;
+    }
+
+    public String getBits(){
+        String bits = String.valueOf(signBit);
+        for(int i : exponentBits){
+            bits += (String.valueOf(i));
+        }
+        for(int i : mantissaBits){
+            bits += (String.valueOf(i));
+        }
+
+        return bits;
+    }
+
+    public void setDecimal(double dec){
+        this.decimal = dec;
+    }
+
+    public double getDecimal(){
+        return this.decimal;
     }
 }
