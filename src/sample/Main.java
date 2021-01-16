@@ -39,7 +39,7 @@ public class Main extends Application {
 
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
-        Scene scene = new Scene(pane, 1038, 200);
+        Scene scene = new Scene(pane, 1068, 200);
 
         Label signBit = new Label("Sign");
         signBit.setPadding(new Insets(10, 10, 10, 10));
@@ -98,6 +98,10 @@ public class Main extends Application {
         pane.getChildren().add(txt);
         bitsModel.attach(txt);
 
+        ChangeIEEEText txt2 = new ChangeIEEEText();
+        txt2.setOnAction(new IEEEInput(txt2, bitsModel));
+        pane.getChildren().add(txt2);
+        bitsModel.attach(txt2);
 
 
         stage.setTitle("IEEE-754 Single Precision Converter");
