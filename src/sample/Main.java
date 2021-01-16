@@ -40,7 +40,7 @@ public class Main extends Application {
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
         pane.setVgap(10);
-        Scene scene = new Scene(pane, 1038, 224);
+        Scene scene = new Scene(pane, 1068, 228);
 
         Label signBit = new Label("Sign");
         signBit.setPadding(new Insets(10, 10, 10, 10));
@@ -106,7 +106,7 @@ public class Main extends Application {
 
         ChangeDecimalText txt = new ChangeDecimalText();
         txt.setOnAction(new DecimalInput(txt, bitsModel));
-        txt.setPrefWidth(222);
+        txt.setPrefWidth(223);
         pane4.getChildren().add(txt);
         bitsModel.attach(txt);
 
@@ -121,7 +121,7 @@ public class Main extends Application {
 
         ChangeIEEEText txt2 = new ChangeIEEEText();
         txt2.setOnAction(new IEEEInput(txt2, bitsModel));
-        txt2.setPrefWidth(222);
+        txt2.setPrefWidth(223);
         pane5.getChildren().add(txt2);
         bitsModel.attach(txt2);
 
