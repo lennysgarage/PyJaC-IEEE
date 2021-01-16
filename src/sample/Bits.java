@@ -9,8 +9,6 @@ public class Bits {
     private int[] exponentBits;
     private int[] mantissaBits;
 
-    private double decimal;
-
     private Bits() {
         this.exponentBits = new int[8];
         this.mantissaBits = new int[23];
@@ -21,7 +19,6 @@ public class Bits {
         this.signBit = 0;
         Arrays.fill(this.exponentBits, 0);
         Arrays.fill(this.mantissaBits, 0);
-        this.decimal = 0.0;
     }
 
     public static Bits getInstance() {
@@ -65,13 +62,5 @@ public class Bits {
         }
 
         return bits;
-    }
-
-    public void setDecimal(double dec){
-        this.decimal = dec;
-    }
-
-    public double getDecimal(){
-        return this.decimal;
     }
 }
