@@ -20,7 +20,6 @@ public class DecimalInput implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         try {
             double dec = Double.parseDouble(text.getText());
-            bits.setDecimal(dec);
             updateArrays(dec);
         } catch(Exception e) { }
         bitsModel.updateBits();
