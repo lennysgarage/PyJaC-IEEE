@@ -3,11 +3,9 @@ package sample;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import java.util.Scanner;
@@ -31,6 +29,8 @@ public class Main extends Application {
     final FlowPane pane = new FlowPane();
     final TilePane pane2 = new TilePane();
     final TilePane pane3 = new TilePane();
+    final TilePane pane4 = new TilePane();
+    final TilePane pane5 = new TilePane();
 
     private void initUI(Stage stage){
 
@@ -39,7 +39,8 @@ public class Main extends Application {
 
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
-        Scene scene = new Scene(pane, 1068, 200);
+        pane.setVgap(10);
+        Scene scene = new Scene(pane, 1038, 224);
 
         Label signBit = new Label("Sign");
         signBit.setPadding(new Insets(10, 10, 10, 10));
@@ -56,7 +57,7 @@ public class Main extends Application {
         // Insert all the checkboxes
 
         // Inserting the sign bit checkbox
-        signBitBox.setPadding(new Insets(10, 17, 10, 17));
+        signBitBox.setPadding(new Insets(10, 17, 20, 17));
         pane.getChildren().add(signBitBox);
         signBitBox.setOnAction(new UpdateSign(0, bitsModel));
 
@@ -64,7 +65,7 @@ public class Main extends Application {
 
         // Inserting the exponent bit checkboxes
 
-        pane2.setPadding(new Insets(20, 20, 20, 22));
+        pane2.setPadding(new Insets(10, 20, 20, 22));
         pane2.setVgap(10);
         pane2.setHgap(15);
         pane2.setPrefColumns(8);
@@ -78,7 +79,7 @@ public class Main extends Application {
 
         // Inserting the mantissa bit checkboxes
 
-        pane3.setPadding(new Insets(20, 20, 20, 21));
+        pane3.setPadding(new Insets(10, 20, 20, 21));
         pane3.setVgap(10);
         pane3.setHgap(12);
         pane3.setPrefColumns(23);
@@ -92,17 +93,39 @@ public class Main extends Application {
 
         pane.getChildren().addAll(pane2, pane3);
 
+        // Text boxes
+
+        pane4.setHgap(10);
+        pane4.setPrefColumns(2);
+        pane5.setHgap(10);
+        pane5.setPrefColumns(2);
+
         // Grab text
+        Label label = new Label("  Decimal Representation");
+        pane.getChildren().add(label);
+
         ChangeDecimalText txt = new ChangeDecimalText();
         txt.setOnAction(new DecimalInput(txt, bitsModel));
-        pane.getChildren().add(txt);
+        txt.setPrefWidth(222);
+        pane4.getChildren().add(txt);
         bitsModel.attach(txt);
+
+        pane.getChildren().add(pane4);
+
+        Region region = new Region();
+        region.setPrefSize(Double.MAX_VALUE, 0.0);
+        pane.getChildren().add(region);
+
+        Label label2 = new Label("        IEEE Representation");
+        pane.getChildren().add(label2);
 
         ChangeIEEEText txt2 = new ChangeIEEEText();
         txt2.setOnAction(new IEEEInput(txt2, bitsModel));
-        pane.getChildren().add(txt2);
+        txt2.setPrefWidth(222);
+        pane5.getChildren().add(txt2);
         bitsModel.attach(txt2);
 
+        pane.getChildren().add(pane5);
 
         stage.setTitle("IEEE-754 Single Precision Converter");
         stage.setScene(scene);
