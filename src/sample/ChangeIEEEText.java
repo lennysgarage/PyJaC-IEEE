@@ -13,8 +13,7 @@ public class ChangeIEEEText extends TextField implements Observer {
 
     @Override
     public void update(Observable o) {
-        decToIEEE ieee = new decToIEEE(bits.getDecimal());
-        this.setText(ieee.getIEEE());
+        this.setText(bits.getBits());
 
     }
 }
