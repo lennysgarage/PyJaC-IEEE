@@ -29,6 +29,7 @@ class UpdateSign extends UpdateBits implements EventHandler<ActionEvent> {
             bits.setSignBit(0);
         bitsModel.updateBits();
     }
+
 }
 
 class UpdateExp extends UpdateBits implements EventHandler<ActionEvent> {
