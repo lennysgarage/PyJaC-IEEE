@@ -40,7 +40,7 @@ public class Main extends Application {
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
         pane.setVgap(10);
-        Scene scene = new Scene(pane, 1068, 228);
+        Scene scene = new Scene(pane, 1038, 228);
 
         Label signBit = new Label("Sign");
         signBit.setPadding(new Insets(10, 10, 10, 10));
