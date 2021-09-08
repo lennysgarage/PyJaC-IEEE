@@ -18,7 +18,7 @@ The program also falls back to console mode if the GUI closes (provided it is be
 
 ### Requirements
 
-The program may compile using older versions, but was built using the following
+The program may compile using older versions, but was built using the following:
 
 * Java 11 Hotspot: https://adoptopenjdk.net/
 
