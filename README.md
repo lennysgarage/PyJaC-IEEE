@@ -11,10 +11,10 @@ Using input from a decimal number, a 32 character string representing the IEEE-7
 The program also falls back to console mode if the GUI closes (provided it is being run on an IDE).
 
 ### Converting from IEEE to Decimal
-<img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/342/360/datas/original.gif" width=1070 height=260>
+<img src="IEEE-to-Decimal.gif" width=1070 height=260>
     
 ### Inputting a Decimal directly to convert to IEEE
-<img src="https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/342/361/datas/original.gif" width=1070 height=260>
+<img src="Decimal-to-IEEE.gif" width=1070 height=260>
 
 ### Requirements
 
